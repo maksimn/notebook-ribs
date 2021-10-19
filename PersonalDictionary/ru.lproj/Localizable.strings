@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  PersonalDictionary
+
+  Created by Maxim Ivanov on 05.10.2021.
+  
+*/
+
+"English" = "Английский";
+"Russian" = "Русский";
+"French" = "Французский";
+"Italian" = "Итальянский";
+"OK" = "OK";
+"⇋" = "⇋";
+"Select" = "Выбрать";
+"Enter a new word" = "Впишите новое слово";
+
+"Enter a word for searching" = "Введите слово для поиска";
+"No words found" = "Ничего не найдено";
+"Search by:" = "Поиск по:";
+"source word" = "слову";
+"translation" = "переводу";
