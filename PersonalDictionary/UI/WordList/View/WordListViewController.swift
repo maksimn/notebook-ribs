@@ -19,8 +19,6 @@ struct WordListViewStyles {
 
 class WordListViewController: UIViewController {
 
-    var viewModel: WordListViewModel?
-
     let staticContent: WordListViewStaticContent
     let styles: WordListViewStyles
 
@@ -43,7 +41,6 @@ class WordListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViews()
-        viewModel?.fetchDataFromModel()
     }
 }
 
@@ -81,18 +78,14 @@ extension WordListViewController {
 
     @objc
     func onDeleteWordTap(_ position: Int) {
-        let item = tableController.wordList[position]
-
-        viewModel?.remove(item, position)
+        _ = tableController.wordList[position]
     }
 
     @objc
     func onNewWordButtonTap() {
-        viewModel?.navigateToNewWord()
     }
 
     @objc
     func onNavigateToSearchButtonTap() {
-        viewModel?.navigateToSearch()
     }
 }

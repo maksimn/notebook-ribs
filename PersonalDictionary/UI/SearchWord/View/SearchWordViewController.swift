@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum SearchWordMode {
+    case bySourceWord, byTranslation
+}
+
 struct SearchWordViewStaticContent {
     let baseContent: WordListViewStaticContent
     let searchBarPlaceholderText: String
@@ -37,12 +41,6 @@ final class SearchWordViewController: WordListViewController, SearchWordView {
         super.viewDidLoad()
 
         rearrangeViews()
-        viewModelOne?.prepareForSearching()
-        viewModelOne?.searchMode = .bySourceWord
-    }
-
-    private var viewModelOne: SearchWordViewModel? {
-        viewModel as? SearchWordViewModel
     }
 
     func setWordsNotFoundLabel(hidden: Bool) {
@@ -64,9 +62,9 @@ final class SearchWordViewController: WordListViewController, SearchWordView {
 
         switch selectedIndex {
         case 0:
-            viewModelOne?.searchMode = .bySourceWord
+            print("search by source word")
         case 1:
-            viewModelOne?.searchMode = .byTranslation
+            print("search by translation")
         default:
             break
         }
@@ -77,7 +75,7 @@ extension SearchWordViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let searchText = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            viewModelOne?.searchText = searchText
+            print("search text \(searchText)")
         }
     }
 }

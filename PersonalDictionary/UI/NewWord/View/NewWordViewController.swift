@@ -20,8 +20,6 @@ struct NewWordViewStyles {
 
 class NewWordViewController: UIViewController, NewWordView {
 
-    var viewModel: NewWordViewModel?
-
     let staticContent: NewWordViewStaticContent
     let styles: NewWordViewStyles
 
@@ -33,13 +31,7 @@ class NewWordViewController: UIViewController, NewWordView {
     let textField = UITextField()
     var langPickerPopup: LangPickerPopup?
 
-    private var isSelectingSourceLang: Bool = false {
-        didSet {
-            if let lang = isSelectingSourceLang ? viewModel?.sourceLang : viewModel?.targetLang {
-                langPickerPopup?.select(lang: lang)
-            }
-        }
-    }
+    private var isSelectingSourceLang: Bool = false
 
     init(staticContent: NewWordViewStaticContent, styles: NewWordViewStyles) {
         self.staticContent = staticContent
@@ -54,7 +46,6 @@ class NewWordViewController: UIViewController, NewWordView {
     override func viewDidLoad() {
         super.viewDidLoad()
         initViews()
-        viewModel?.fetchDataFromModel()
     }
 
     func set(allLangs: [Lang]) {
@@ -96,7 +87,7 @@ extension NewWordViewController {
     @objc
     func onOkButtonTap() {
         if let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            viewModel?.sendNewWordEvent(text)
+            print(text)
         }
 
         dismiss(animated: true, completion: nil)
@@ -106,9 +97,9 @@ extension NewWordViewController {
         langPickerPopup?.isHidden = true
 
         if isSelectingSourceLang {
-            viewModel?.sourceLang = lang
+            print("source lang")
         } else {
-            viewModel?.targetLang = lang
+            print("target lang")
         }
     }
 }
