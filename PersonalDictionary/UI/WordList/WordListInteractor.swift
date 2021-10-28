@@ -34,7 +34,8 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // Implement business logic here.
+        fetchWordList()
+        requestTranslationsIfNeeded()
     }
 
     override func willResignActive() {
@@ -42,7 +43,47 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
         // Pause any business logic.
     }
 
-    func removeFromRepository(_ wordItem: WordItem) {
+    private func fetchWordList() {
+        presenter.wordList = wordListRepository.wordList
+    }
 
+    func add(_ wordItem: WordItem) {
+        let position = presenter.wordList.count
+
+        presenter.add(wordItem)
+        wordListRepository.add(wordItem, completion: nil)
+        requestTranslation(for: wordItem, position)
+    }
+
+    func remove(wordItem: WordItem) {
+        guard let position = presenter.wordList.firstIndex(where: { $0.id == wordItem.id }) else { return }
+
+        presenter.remove(wordItem, position)
+    }
+
+    func removeFromRepository(_ wordItem: WordItem) {
+        wordListRepository.remove(with: wordItem.id, completion: nil)
+    }
+
+    private func requestTranslationsIfNeeded() {
+        let wordList = presenter.wordList
+
+        for position in 0..<wordList.count where wordList[position].translation == nil {
+            requestTranslation(for: wordList[position], position)
+        }
+    }
+
+    private func requestTranslation(for wordItem: WordItem, _ position: Int) {
+        translationService.fetchTranslation(for: wordItem, { [weak self] result in
+            switch result {
+            case .success(let translation):
+                let updatedWordItem = wordItem.update(translation: translation)
+
+                self?.wordListRepository.update(updatedWordItem, completion: nil)
+                self?.presenter.update(updatedWordItem, position)
+            case .failure:
+                break
+            }
+        })
     }
 }
