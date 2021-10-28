@@ -15,12 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        let vcr = UIViewController()
-
-        vcr.view.backgroundColor = .cyan
-
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = vcr
-        window?.makeKeyAndVisible()
+
+        let wordListBuilder = WordListBuilder(dependency: WordListComponent())
+        let wordListRouter = wordListBuilder.build()
     }
 }

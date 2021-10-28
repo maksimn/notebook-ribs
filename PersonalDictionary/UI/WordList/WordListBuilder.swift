@@ -12,14 +12,17 @@ protocol WordListDependency: Dependency {
     // created by this RIB.
 }
 
-final class WordListComponent: Component<WordListDependency> {
+final class WordListComponent: Component<EmptyDependency>, WordListDependency {
     // Declare 'fileprivate' dependencies that are only used by this RIB.
+    init() {
+        super.init(dependency: EmptyComponent())
+    }
 }
 
 // MARK: - Builder
 
 protocol WordListBuildable: Buildable {
-    func build(withListener listener: WordListListener) -> WordListRouting
+    func build() -> WordListRouting
 }
 
 final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
@@ -28,7 +31,7 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
         super.init(dependency: dependency)
     }
 
-    func build(withListener listener: WordListListener) -> WordListRouting {
+    func build() -> WordListRouting {
         let staticContent = WordListViewStaticContent(
                 newWordButtonImage: UIImage(named: "icon-plus")!,
                 deleteAction: DeleteActionStaticContent(
@@ -43,10 +46,8 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
                 )
             )
 
-        _ = WordListComponent(dependency: dependency)
         let viewController = WordListViewController(staticContent: staticContent, styles: styles)
         let interactor = WordListInteractor(presenter: viewController)
-        interactor.listener = listener
         return WordListRouter(interactor: interactor, viewController: viewController)
     }
 }
