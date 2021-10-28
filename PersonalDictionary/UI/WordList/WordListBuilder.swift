@@ -7,20 +7,6 @@
 
 import RIBs
 
-protocol WordListDependency: Dependency {
-    // Declare the set of dependencies required by this RIB, but cannot be
-    // created by this RIB.
-}
-
-final class WordListComponent: Component<EmptyDependency>, WordListDependency {
-    // Declare 'fileprivate' dependencies that are only used by this RIB.
-    init() {
-        super.init(dependency: EmptyComponent())
-    }
-}
-
-// MARK: - Builder
-
 protocol WordListBuildable: Buildable {
     func build() -> WordListRouting
 }
@@ -32,22 +18,12 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
     }
 
     func build() -> WordListRouting {
-        let staticContent = WordListViewStaticContent(
-                newWordButtonImage: UIImage(named: "icon-plus")!,
-                deleteAction: DeleteActionStaticContent(
-                    image: UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))!
-                )
-            )
-
-            let styles = WordListViewStyles(
-                backgroundColor: appBackgroundColor,
-                deleteAction: DeleteActionStyles(
-                    backgroundColor: UIColor(red: 1, green: 0.271, blue: 0.227, alpha: 1)
-                )
-            )
-
-        let viewController = WordListViewController(staticContent: staticContent, styles: styles)
-        let interactor = WordListInteractor(presenter: viewController)
+        let component = WordListComponent()
+        let viewController = WordListViewController(staticContent: component.staticContent,
+                                                    styles: component.styles)
+        let interactor = WordListInteractor(presenter: viewController,
+                                            wordListRepository: component.wordListRepository,
+                                            translationService: component.translationService)
         return WordListRouter(interactor: interactor, viewController: viewController)
     }
 }
