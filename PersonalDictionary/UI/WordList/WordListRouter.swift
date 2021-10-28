@@ -18,6 +18,10 @@ protocol WordListViewControllable: ViewControllable {
     // Declare methods the router invokes to manipulate the view hierarchy.
 }
 
+extension UINavigationController: WordListViewControllable {
+
+}
+
 final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewControllable>, WordListRouting {
 
     //  Constructor inject child builder protocols to allow building children.
