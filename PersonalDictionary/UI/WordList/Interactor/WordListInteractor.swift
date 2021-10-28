@@ -8,10 +8,6 @@
 import RIBs
 import RxSwift
 
-protocol WordListRouting: LaunchRouting {
-    // Declare methods the interactor can invoke to manage sub-tree via the router.
-}
-
 protocol WordListListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
 }

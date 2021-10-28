@@ -7,10 +7,6 @@
 
 import RIBs
 
-protocol WordListBuildable: Buildable {
-    func build() -> WordListRouting
-}
-
 final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
 
     override init(dependency: WordListDependency) {
@@ -19,13 +15,8 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
 
     func build() -> WordListRouting {
         let component = WordListComponent()
-        let navigationController = UINavigationController()
         let viewController = WordListViewController(staticContent: component.staticContent,
                                                     styles: component.styles)
-
-        navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
-        navigationController.setViewControllers([viewController], animated: false)
-
         let viewModel = WordListViewModel(view: viewController)
 
         viewController.viewModel = viewModel
@@ -36,6 +27,6 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
 
         viewModel.interactor = interactor
 
-        return WordListRouter(interactor: interactor, viewController: navigationController)
+        return WordListRouter(interactor: interactor, viewController: viewController)
     }
 }

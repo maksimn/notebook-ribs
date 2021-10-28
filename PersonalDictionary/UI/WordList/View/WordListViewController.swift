@@ -17,7 +17,7 @@ struct WordListViewStyles {
     let deleteAction: DeleteActionStyles
 }
 
-class WordListViewController: UIViewController {
+class WordListViewController: UIViewController, WordListViewControllable {
 
     var viewModel: WordListViewModel?
 
