@@ -10,6 +10,8 @@ import RIBs
 protocol WordListInteractable: Interactable {
     var router: WordListRouting? { get set }
     var listener: WordListListener? { get set }
+
+    func removeFromRepository(_ wordItem: WordItem)
 }
 
 protocol WordListViewControllable: ViewControllable {

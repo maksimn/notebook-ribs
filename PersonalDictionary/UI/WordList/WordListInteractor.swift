@@ -49,4 +49,8 @@ final class WordListInteractor: PresentableInteractor<WordListPresentable>,
         super.willResignActive()
         // Pause any business logic.
     }
+
+    func removeFromRepository(_ wordItem: WordItem) {
+
+    }
 }
