@@ -16,7 +16,7 @@ protocol WordListViewControllable: ViewControllable {
     // Declare methods the router invokes to manipulate the view hierarchy.
 }
 
-final class WordListRouter: ViewableRouter<WordListInteractable, WordListViewControllable>, WordListRouting {
+final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewControllable>, WordListRouting {
 
     //  Constructor inject child builder protocols to allow building children.
     override init(interactor: WordListInteractable, viewController: WordListViewControllable) {

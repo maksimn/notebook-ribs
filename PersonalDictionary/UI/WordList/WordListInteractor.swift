@@ -8,17 +8,17 @@
 import RIBs
 import RxSwift
 
-protocol WordListRouting: ViewableRouting {
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+protocol WordListRouting: LaunchRouting {
+    // Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
 protocol WordListPresentable: Presentable {
     var listener: WordListPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
+    // Declare methods the interactor can invoke the presenter to present data.
 }
 
 protocol WordListListener: AnyObject {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    // Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
 final class WordListInteractor: PresentableInteractor<WordListPresentable>, WordListInteractable, WordListPresentableListener {

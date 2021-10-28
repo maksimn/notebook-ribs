@@ -14,10 +14,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
 
-        window = UIWindow(windowScene: windowScene)
+        self.window = window
 
         let wordListBuilder = WordListBuilder(dependency: WordListComponent())
         let wordListRouter = wordListBuilder.build()
+
+        self.wordListRouter = wordListRouter
+        wordListRouter.launchFromWindow(window)
     }
+
+    // MARK: - Private
+
+    private var wordListRouter: WordListRouting?
 }
