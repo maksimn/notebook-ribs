@@ -2,25 +2,33 @@ PODS:
   - Cuckoo (1.5.1):
     - Cuckoo/Swift (= 1.5.1)
   - Cuckoo/Swift (1.5.1)
+  - RIBs (0.9.1):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.5.0)
   - SnapKit (4.2.0)
   - SwiftLint (0.43.1)
 
 DEPENDENCIES:
   - Cuckoo
+  - RIBs (~> 0.9)
   - SnapKit (~> 4.0)
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - Cuckoo
+    - RIBs
+    - RxSwift
     - SnapKit
     - SwiftLint
 
 SPEC CHECKSUMS:
   Cuckoo: 9124fe138270854903483c270370e6e7658fbc9b
+  RIBs: 879184fbca567425c488d6b3d14a9c5abfbf9d47
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: 5e48fb0b706da8c1b2a91eed81825085f219ec4d
+PODFILE CHECKSUM: c68a7281f348f03819db53835f35858b159963c8
 
 COCOAPODS: 1.10.0
