@@ -12,18 +12,11 @@ protocol WordListRouting: LaunchRouting {
     // Declare methods the interactor can invoke to manage sub-tree via the router.
 }
 
-protocol WordListPresentable: Presentable {
-    var listener: WordListPresentableListener? { get set }
-    // Declare methods the interactor can invoke the presenter to present data.
-}
-
 protocol WordListListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
 }
 
-final class WordListInteractor: PresentableInteractor<WordListPresentable>,
-                                WordListInteractable,
-                                WordListPresentableListener {
+final class WordListInteractor: PresentableInteractor<WordListViewModellable>, WordListInteractable {
 
     weak var router: WordListRouting?
     weak var listener: WordListListener?
@@ -31,13 +24,12 @@ final class WordListInteractor: PresentableInteractor<WordListPresentable>,
     private let wordListRepository: WordListRepository
     private let translationService: TranslationService
 
-    init(presenter: WordListPresentable,
+    init(viewModel: WordListViewModellable,
          wordListRepository: WordListRepository,
          translationService: TranslationService) {
         self.wordListRepository = wordListRepository
         self.translationService = translationService
-        super.init(presenter: presenter)
-        presenter.listener = self
+        super.init(presenter: viewModel)
     }
 
     override func didBecomeActive() {

@@ -5,15 +5,7 @@
 //  Created by Maxim Ivanov on 30.09.2021.
 //
 
-import RIBs
-import RxSwift
 import UIKit
-
-protocol WordListPresentableListener: AnyObject {
-    // Declare properties and methods that the view controller can invoke to perform
-    // business logic, such as signIn(). This protocol is implemented by the corresponding
-    // interactor class.
-}
 
 struct WordListViewStaticContent {
     let newWordButtonImage: UIImage
@@ -25,9 +17,9 @@ struct WordListViewStyles {
     let deleteAction: DeleteActionStyles
 }
 
-class WordListViewController: UIViewController, WordListPresentable, WordListViewControllable {
+class WordListViewController: UIViewController, WordListViewControllable {
 
-    weak var listener: WordListPresentableListener?
+    var viewModel: WordListViewModel?
 
     let staticContent: WordListViewStaticContent
     let styles: WordListViewStyles
@@ -88,14 +80,18 @@ extension WordListViewController {
 
     @objc
     func onDeleteWordTap(_ position: Int) {
-        _ = tableController.wordList[position]
+        let item = tableController.wordList[position]
+
+        viewModel?.remove(item, position)
     }
 
     @objc
     func onNewWordButtonTap() {
+        viewModel?.navigateToNewWord()
     }
 
     @objc
     func onNavigateToSearchButtonTap() {
+        viewModel?.navigateToSearch()
     }
 }

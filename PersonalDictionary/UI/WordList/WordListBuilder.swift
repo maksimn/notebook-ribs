@@ -21,9 +21,16 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
         let component = WordListComponent()
         let viewController = WordListViewController(staticContent: component.staticContent,
                                                     styles: component.styles)
-        let interactor = WordListInteractor(presenter: viewController,
+        let viewModel = WordListViewModel(view: viewController)
+
+        viewController.viewModel = viewModel
+
+        let interactor = WordListInteractor(viewModel: viewModel,
                                             wordListRepository: component.wordListRepository,
                                             translationService: component.translationService)
+
+        viewModel.interactor = interactor
+
         return WordListRouter(interactor: interactor, viewController: viewController)
     }
 }

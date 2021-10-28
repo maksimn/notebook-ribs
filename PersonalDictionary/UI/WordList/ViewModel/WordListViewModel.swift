@@ -8,14 +8,13 @@
 class WordListViewModel: WordListViewModellable {
 
     unowned let view: WordListView
-    let interactor: WordListInteractable
+    weak var interactor: WordListInteractable?
 
     private var previousWordCount = -1
     private var removedItemPosition = -1
     private var updatedItemPosition = -1
 
-    init(interactor: WordListInteractable, view: WordListView) {
-        self.interactor = interactor
+    init(view: WordListView) {
         self.view = view
     }
 
@@ -31,7 +30,7 @@ class WordListViewModel: WordListViewModellable {
     func remove(_ wordItem: WordItem, _ position: Int) {
         removedItemPosition = position
         wordList.remove(at: position)
-        interactor.removeFromRepository(wordItem)
+        interactor?.removeFromRepository(wordItem)
     }
 
     func navigateToNewWord() {
