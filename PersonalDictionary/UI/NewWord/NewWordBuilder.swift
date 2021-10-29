@@ -59,14 +59,22 @@ final class NewWordBuilder: Builder<NewWordDependency>, NewWordBuildable {
             okText: NSLocalizedString("OK", comment: ""),
             textFieldPlaceholder: NSLocalizedString("Enter a new word", comment: "")
         )
-
         let styles = NewWordViewStyles(backgroundColor: appBackgroundColor)
+
         let component = NewWordComponent(dependency: dependency)
+
         let viewController = NewWordViewController(staticContent: staticContent, styles: styles)
+
         let viewModel = NewWordViewModelImpl(view: viewController)
+
+        viewController.viewModel = viewModel
+
         let interactor = NewWordInteractor(viewModel: viewModel,
                                            langRepository: component.langRepository)
+
+        interactor.viewModel = viewModel
         interactor.listener = listener
+
         return NewWordRouter(interactor: interactor, viewController: viewController)
     }
 }

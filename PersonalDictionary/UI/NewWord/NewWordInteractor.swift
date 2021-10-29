@@ -14,6 +14,7 @@ protocol NewWordRouting: ViewableRouting {
 
 protocol NewWordListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
+    func addNewWord(_ wordItem: WordItem)
 }
 
 final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordInteractable {
@@ -25,8 +26,7 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
 
     private var langRepository: LangRepository
 
-    // Add additional dependencies to constructor. Do not perform any logic
-    // in constructor.
+    // Add additional dependencies to constructor. Do not perform any logic in constructor.
     init(viewModel: NewWordViewModel, langRepository: LangRepository) {
         self.langRepository = langRepository
         super.init(presenter: viewModel)
@@ -34,7 +34,7 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // Implement business logic here.
+        fetchData()
     }
 
     override func willResignActive() {
@@ -42,7 +42,7 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
         // Pause any business logic.
     }
 
-    func fetchData() {
+    private func fetchData() {
         viewModel?.allLangs = langRepository.allLangs
         viewModel?.sourceLang = langRepository.sourceLang
         viewModel?.targetLang = langRepository.targetLang
@@ -56,6 +56,14 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
         langRepository.targetLang = targetLang
     }
 
-    func sendNewWordEvent(_ newWordText: String) {
+    func sendNewWord(_ text: String) {
+        guard !text.isEmpty,
+              let sourceLang = viewModel?.sourceLang,
+              let targetLang = viewModel?.targetLang else {
+            return
+        }
+        let wordItem = WordItem(text: text, sourceLang: sourceLang, targetLang: targetLang)
+
+        listener?.addNewWord(wordItem)
     }
 }

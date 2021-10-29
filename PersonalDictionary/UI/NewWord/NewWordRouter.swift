@@ -8,18 +8,18 @@
 import RIBs
 
 protocol NewWordInteractable: Interactable {
+
     var router: NewWordRouting? { get set }
+
     var listener: NewWordListener? { get set }
 
     var viewModel: NewWordViewModel? { get set }
-
-    func fetchData()
 
     func save(sourceLang: Lang)
 
     func save(targetLang: Lang)
 
-    func sendNewWordEvent(_ newWordText: String)
+    func sendNewWord(_ text: String)
 }
 
 protocol NewWordViewControllable: ViewControllable {

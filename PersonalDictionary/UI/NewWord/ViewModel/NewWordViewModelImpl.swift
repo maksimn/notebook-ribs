@@ -36,11 +36,7 @@ class NewWordViewModelImpl: NewWordViewModel {
         }
     }
 
-    func fetchDataFromModel() {
-        interactor?.fetchData()
-    }
-
-    func sendNewWordEvent(_ newWordText: String) {
-        interactor?.sendNewWordEvent(newWordText)
+    func sendNewWord(_ text: String) {
+        interactor?.sendNewWord(text)
     }
 }
