@@ -7,19 +7,33 @@
 
 import RIBs
 
-extension UINavigationController: WordListViewControllable {
-
-}
-
 final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewControllable>, WordListRouting {
 
-    let navigationController = UINavigationController()
+    private let newWordBuilder: NewWordBuildable
+    private var newWord: NewWordRouting?
 
     //  Constructor inject child builder protocols to allow building children.
-    override init(interactor: WordListInteractable, viewController: WordListViewControllable) {
-        navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
-        navigationController.setViewControllers([viewController.uiviewController], animated: false)
-        super.init(interactor: interactor, viewController: navigationController)
+    init(interactor: WordListInteractable,
+         viewController: WordListViewControllable,
+         newWordBuilder: NewWordBuildable) {
+        self.newWordBuilder = newWordBuilder
+        super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
+    }
+
+    func routeToNewWord() {
+        let newWord = newWordBuilder.build(withListener: interactor)
+
+        self.newWord = newWord
+        attachChild(newWord)
+        viewController.presentNewWord(viewController: newWord.viewControllable)
+    }
+
+    func hideNewWord() {
+        if let newWord = newWord {
+            detachChild(newWord)
+            viewController.dismissNewWord(viewController: newWord.viewControllable)
+            self.newWord = nil
+        }
     }
 }

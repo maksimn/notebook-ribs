@@ -34,6 +34,7 @@ class WordListViewModel: WordListViewModellable {
     }
 
     func navigateToNewWord() {
+        interactor?.navigateToNewWord()
     }
 
     func navigateToSearch() {

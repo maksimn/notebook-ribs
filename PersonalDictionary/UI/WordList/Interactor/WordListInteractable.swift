@@ -7,11 +7,13 @@
 
 import RIBs
 
-protocol WordListInteractable: Interactable {
+protocol WordListInteractable: Interactable, NewWordListener {
 
     var router: WordListRouting? { get set }
 
     var listener: WordListListener? { get set }
 
     func removeFromRepository(_ wordItem: WordItem)
+
+    func navigateToNewWord()
 }

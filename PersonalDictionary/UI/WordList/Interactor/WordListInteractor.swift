@@ -61,6 +61,19 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
         wordListRepository.remove(with: wordItem.id, completion: nil)
     }
 
+    func navigateToNewWord() {
+        router?.routeToNewWord()
+    }
+
+    func addNewWord(_ wordItem: WordItem) {
+        wordListRepository.add(wordItem, completion: nil)
+        presenter.add(wordItem)
+    }
+
+    func dismissNewWord() {
+        router?.hideNewWord()
+    }
+
     private func requestTranslationsIfNeeded() {
         let wordList = presenter.wordList
 

@@ -72,7 +72,7 @@ final class NewWordBuilder: Builder<NewWordDependency>, NewWordBuildable {
         let interactor = NewWordInteractor(viewModel: viewModel,
                                            langRepository: component.langRepository)
 
-        interactor.viewModel = viewModel
+        viewModel.interactor = interactor
         interactor.listener = listener
 
         return NewWordRouter(interactor: interactor, viewController: viewController)

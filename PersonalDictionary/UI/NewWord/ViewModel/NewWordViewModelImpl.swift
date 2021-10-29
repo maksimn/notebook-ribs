@@ -39,4 +39,8 @@ class NewWordViewModelImpl: NewWordViewModel {
     func sendNewWord(_ text: String) {
         interactor?.sendNewWord(text)
     }
+
+    func dismiss() {
+        interactor?.dismiss()
+    }
 }

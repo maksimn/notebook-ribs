@@ -20,6 +20,8 @@ protocol NewWordInteractable: Interactable {
     func save(targetLang: Lang)
 
     func sendNewWord(_ text: String)
+
+    func dismiss()
 }
 
 protocol NewWordViewControllable: ViewControllable {

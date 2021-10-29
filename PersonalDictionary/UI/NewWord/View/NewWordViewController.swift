@@ -20,7 +20,7 @@ struct NewWordViewStyles {
 
 class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable {
 
-    var viewModel: NewWordViewModel?
+    weak var viewModel: NewWordViewModel?
 
     let staticContent: NewWordViewStaticContent
     let styles: NewWordViewStyles
@@ -89,19 +89,19 @@ extension NewWordViewController {
     @objc
     func onOkButtonTap() {
         if let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            print(text)
+            viewModel?.sendNewWord(text)
         }
 
-        dismiss(animated: true, completion: nil)
+        viewModel?.dismiss()
     }
 
     func onSelectLang(_ lang: Lang) {
         langPickerPopup?.isHidden = true
 
         if isSelectingSourceLang {
-            print("source lang")
+            viewModel?.sourceLang = lang
         } else {
-            print("target lang")
+            viewModel?.targetLang = lang
         }
     }
 }

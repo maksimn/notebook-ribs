@@ -5,6 +5,7 @@
 //  Created by Maxim Ivanov on 30.09.2021.
 //
 
+import RIBs
 import UIKit
 
 struct WordListViewStaticContent {
@@ -17,7 +18,7 @@ struct WordListViewStyles {
     let deleteAction: DeleteActionStyles
 }
 
-class WordListViewController: UIViewController, WordListViewControllable {
+class WordListViewController: UIViewController {
 
     var viewModel: WordListViewModel?
 

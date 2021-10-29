@@ -7,7 +7,7 @@
 
 import RIBs
 
-final class WordListComponent: Component<EmptyDependency>, WordListDependency {
+final class WordListComponent: Component<EmptyDependency>, WordListDependency, NewWordDependency {
 
     // Declare 'fileprivate' dependencies that are only used by this RIB.
 

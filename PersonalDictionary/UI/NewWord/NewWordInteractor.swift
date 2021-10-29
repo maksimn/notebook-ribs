@@ -15,6 +15,8 @@ protocol NewWordRouting: ViewableRouting {
 protocol NewWordListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
     func addNewWord(_ wordItem: WordItem)
+
+    func dismissNewWord()
 }
 
 final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordInteractable {
@@ -29,6 +31,7 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
     // Add additional dependencies to constructor. Do not perform any logic in constructor.
     init(viewModel: NewWordViewModel, langRepository: LangRepository) {
         self.langRepository = langRepository
+        self.viewModel = viewModel
         super.init(presenter: viewModel)
     }
 
@@ -65,5 +68,9 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
         let wordItem = WordItem(text: text, sourceLang: sourceLang, targetLang: targetLang)
 
         listener?.addNewWord(wordItem)
+    }
+
+    func dismiss() {
+        listener?.dismissNewWord()
     }
 }
