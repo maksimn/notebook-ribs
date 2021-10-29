@@ -18,7 +18,9 @@ struct NewWordViewStyles {
     let backgroundColor: UIColor
 }
 
-class NewWordViewController: UIViewController, NewWordView {
+class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable {
+
+    var viewModel: NewWordViewModel?
 
     let staticContent: NewWordViewStaticContent
     let styles: NewWordViewStyles

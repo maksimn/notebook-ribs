@@ -7,6 +7,8 @@
 
 protocol NewWordView: AnyObject {
 
+    var viewModel: NewWordViewModel? { get set }
+
     func set(allLangs: [Lang])
 
     func set(sourceLang: Lang)
