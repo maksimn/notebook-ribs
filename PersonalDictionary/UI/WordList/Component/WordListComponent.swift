@@ -7,7 +7,7 @@
 
 import RIBs
 
-final class WordListComponent: Component<EmptyDependency>, WordListDependency, NewWordDependency {
+final class WordListComponent: Component<EmptyDependency>, WordListDependency {
 
     // Declare 'fileprivate' dependencies that are only used by this RIB.
 
@@ -60,7 +60,7 @@ final class WordListComponent: Component<EmptyDependency>, WordListDependency, N
                                       logger: buildLogger())
     }
 
-    private static let langRepository = buildLangRepository()
+    static let langRepository = buildLangRepository()
 
     private static func buildLangRepository() -> LangRepository {
         let langData = buildLangData()

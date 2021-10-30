@@ -7,6 +7,13 @@
 
 import RIBs
 
+extension WordListComponent: NewWordDependency {
+
+    var langRepository: LangRepository {
+        WordListComponent.langRepository
+    }
+}
+
 final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
 
     override init(dependency: WordListDependency) {

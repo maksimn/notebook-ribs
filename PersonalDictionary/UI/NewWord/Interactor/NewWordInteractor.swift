@@ -8,10 +8,6 @@
 import RIBs
 import RxSwift
 
-protocol NewWordRouting: ViewableRouting {
-    // Declare methods the interactor can invoke to manage sub-tree via the router.
-}
-
 protocol NewWordListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
     func addNewWord(_ wordItem: WordItem)
