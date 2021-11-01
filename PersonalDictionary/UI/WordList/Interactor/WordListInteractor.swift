@@ -66,8 +66,11 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
     }
 
     func addNewWord(_ wordItem: WordItem) {
+        let position = presenter.wordList.count
+
         wordListRepository.add(wordItem, completion: nil)
         presenter.add(wordItem)
+        requestTranslation(for: wordItem, position)
     }
 
     func dismissNewWord() {
