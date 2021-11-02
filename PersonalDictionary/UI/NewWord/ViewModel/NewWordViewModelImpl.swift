@@ -16,6 +16,12 @@ class NewWordViewModelImpl: NewWordViewModel {
         self.view = view
     }
 
+    var text: String = "" {
+        didSet {
+            view.set(text: text)
+        }
+    }
+
     var allLangs: [Lang] = [] {
         didSet {
             view.set(allLangs: allLangs)
@@ -36,7 +42,7 @@ class NewWordViewModelImpl: NewWordViewModel {
         }
     }
 
-    func sendNewWord(_ text: String) {
+    func sendNewWord() {
         interactor?.sendNewWord(text)
     }
 

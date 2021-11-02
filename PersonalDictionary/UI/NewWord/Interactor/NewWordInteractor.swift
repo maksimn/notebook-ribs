@@ -56,6 +56,7 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
     }
 
     func sendNewWord(_ text: String) {
+        let text = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty,
               let sourceLang = viewModel?.sourceLang,
               let targetLang = viewModel?.targetLang else {

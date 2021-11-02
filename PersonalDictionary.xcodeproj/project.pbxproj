@@ -366,8 +366,8 @@
 		5967E785270FADDD00DCD8E4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5953CB03270626AD006537B9 /* NewWord */,
 				598B79EF270C4E68007ED9FD /* WordList */,
+				5953CB03270626AD006537B9 /* NewWord */,
 				59169EF02713D2D600DB37A1 /* SearchWord */,
 			);
 			path = UI;

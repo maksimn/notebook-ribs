@@ -18,7 +18,7 @@ struct NewWordViewStyles {
     let backgroundColor: UIColor
 }
 
-class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable {
+class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable, UITextFieldDelegate {
 
     weak var viewModel: NewWordViewModel?
 
@@ -50,6 +50,10 @@ class NewWordViewController: UIViewController, NewWordView, NewWordViewControlla
         initViews()
     }
 
+    func set(text: String) {
+        textField.text = text
+    }
+
     func set(allLangs: [Lang]) {
         releaseLangPickerPopup()
 
@@ -71,10 +75,8 @@ class NewWordViewController: UIViewController, NewWordView, NewWordViewControlla
     func set(targetLang: Lang) {
         targetLangLabel.text = targetLang.name
     }
-}
 
-// User Action handlers
-extension NewWordViewController {
+    // MARK: - User Action Handlers
 
     @objc
     func onSourceLangLabelTap() {
@@ -90,11 +92,7 @@ extension NewWordViewController {
 
     @objc
     func onOkButtonTap() {
-        if let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            viewModel?.sendNewWord(text)
-        }
-
-        viewModel?.dismiss()
+        sendNewWordAndDismiss()
     }
 
     func onSelectLang(_ lang: Lang) {
@@ -105,5 +103,24 @@ extension NewWordViewController {
         } else {
             viewModel?.targetLang = lang
         }
+    }
+
+    // MARK: - UITextFieldDelegate
+
+    @objc
+    func textFieldDidChange(_ textField: UITextField) {
+        viewModel?.text = textField.text ?? ""
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        sendNewWordAndDismiss()
+        return true
+    }
+
+    // MARK: - private
+
+    private func sendNewWordAndDismiss() {
+        viewModel?.sendNewWord()
+        viewModel?.dismiss()
     }
 }

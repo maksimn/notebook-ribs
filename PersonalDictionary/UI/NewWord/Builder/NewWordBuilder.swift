@@ -14,17 +14,10 @@ final class NewWordBuilder: Builder<NewWordDependency>, NewWordBuildable {
     }
 
     func build(withListener listener: NewWordListener) -> NewWordRouting {
-        let staticContent = NewWordViewStaticContent(
-            selectButtonTitle: NSLocalizedString("Select", comment: ""),
-            arrowText: NSLocalizedString("⇋", comment: ""),
-            okText: NSLocalizedString("OK", comment: ""),
-            textFieldPlaceholder: NSLocalizedString("Enter a new word", comment: "")
-        )
-        let styles = NewWordViewStyles(backgroundColor: appBackgroundColor)
-
         let component = NewWordComponent(dependency: dependency)
 
-        let viewController = NewWordViewController(staticContent: staticContent, styles: styles)
+        let viewController = NewWordViewController(staticContent: component.staticContent,
+                                                   styles: component.styles)
 
         let viewModel = NewWordViewModelImpl(view: viewController)
 
