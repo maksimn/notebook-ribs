@@ -23,8 +23,7 @@ final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
     func build() -> WordListRouting {
         let component = WordListComponent()
         let navigationController = UINavigationController()
-        let viewController = WordListViewController(staticContent: component.staticContent,
-                                                    styles: component.styles)
+        let viewController = WordListViewController(params: component.viewParams)
 
         navigationController.navigationBar.setValue(true, forKey: "hidesShadow")
         navigationController.setViewControllers([viewController], animated: false)

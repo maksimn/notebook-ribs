@@ -8,22 +8,23 @@
 import RIBs
 import UIKit
 
+typealias WordListViewParams = ViewParams<WordListViewStaticContent, WordListViewStyles>
+
 struct WordListViewStaticContent {
     let newWordButtonImage: UIImage
-    let deleteAction: DeleteActionViewParams.StaticContent
+    let deleteAction: DeleteActionStaticContent
 }
 
 struct WordListViewStyles {
     let backgroundColor: UIColor
-    let deleteAction: DeleteActionViewParams.Styles
+    let deleteAction: DeleteActionStyles
 }
 
 class WordListViewController: UIViewController {
 
     var viewModel: WordListViewModel?
 
-    let staticContent: WordListViewStaticContent
-    let styles: WordListViewStyles
+    let params: WordListViewParams
 
     let searchBar = UISearchBar()
     let tableView = UITableView()
@@ -33,13 +34,15 @@ class WordListViewController: UIViewController {
     lazy var tableController: WordTableController = {
         WordTableController(wordList: [],
                             onDeleteTap: self.onDeleteWordTap,
-                            deleteActionViewParams: DeleteActionViewParams(staticContent: staticContent.deleteAction,
-                                                                           styles: styles.deleteAction))
+                            deleteActionViewParams: DeleteActionViewParams(
+                                staticContent: params.staticContent.deleteAction,
+                                styles: params.styles.deleteAction
+                            )
+        )
     }()
 
-    init(staticContent: WordListViewStaticContent, styles: WordListViewStyles) {
-        self.staticContent = staticContent
-        self.styles = styles
+    init(params: WordListViewParams) {
+        self.params = params
         super.init(nibName: nil, bundle: nil)
     }
 

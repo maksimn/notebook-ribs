@@ -38,6 +38,7 @@
 		5958D54A272AB1260019D55E /* WordListRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5958D549272AB1260019D55E /* WordListRouting.swift */; };
 		5958D54F272AB17E0019D55E /* WordListInteractable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5958D54E272AB17E0019D55E /* WordListInteractable.swift */; };
 		5958D554272AB1AE0019D55E /* WordListBuildable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5958D553272AB1AE0019D55E /* WordListBuildable.swift */; };
+		596439582732BA7600F5A345 /* ViewParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596439572732BA7600F5A345 /* ViewParams.swift */; };
 		596B95CC2706AC35004CE7E6 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596B95CB2706AC35004CE7E6 /* Lang.swift */; };
 		596D720327051D4E00872D6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596D720227051D4E00872D6C /* AppDelegate.swift */; };
 		596D720527051D4E00872D6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596D720427051D4E00872D6C /* SceneDelegate.swift */; };
@@ -127,6 +128,7 @@
 		5958D549272AB1260019D55E /* WordListRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListRouting.swift; sourceTree = "<group>"; };
 		5958D54E272AB17E0019D55E /* WordListInteractable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListInteractable.swift; sourceTree = "<group>"; };
 		5958D553272AB1AE0019D55E /* WordListBuildable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListBuildable.swift; sourceTree = "<group>"; };
+		596439572732BA7600F5A345 /* ViewParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParams.swift; sourceTree = "<group>"; };
 		596B95CB2706AC35004CE7E6 /* Lang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lang.swift; sourceTree = "<group>"; };
 		596D71FF27051D4E00872D6C /* PersonalDictionary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalDictionary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		596D720227051D4E00872D6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				597602482711154E0077B5F7 /* JsonCoder */,
 				59A94336270E4C5A0076F08B /* Logger */,
 				5910A44E270EA49000631446 /* Views */,
+				596439572732BA7600F5A345 /* ViewParams.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				590F78F32709317800BCBD2C /* LangPickerPopup.swift in Sources */,
 				59A942F9270CE6C80076F08B /* WordItem.swift in Sources */,
 				5953CAEF270615AE006537B9 /* WordListViewController+Layout.swift in Sources */,
+				596439582732BA7600F5A345 /* ViewParams.swift in Sources */,
 				5958D54F272AB17E0019D55E /* WordListInteractable.swift in Sources */,
 				59A94319270DED370076F08B /* WordListRepository.swift in Sources */,
 				59A942E6270C52BF0076F08B /* WordListView.swift in Sources */,

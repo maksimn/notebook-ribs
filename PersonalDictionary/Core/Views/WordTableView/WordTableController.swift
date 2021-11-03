@@ -7,18 +7,14 @@
 
 import UIKit
 
-struct DeleteActionViewParams {
+typealias DeleteActionViewParams = ViewParams<DeleteActionStaticContent, DeleteActionStyles>
 
-    let staticContent: StaticContent
-    let styles: Styles
+struct DeleteActionStaticContent {
+    let image: UIImage
+}
 
-    struct StaticContent {
-        let image: UIImage
-    }
-
-    struct Styles {
-        let backgroundColor: UIColor
-    }
+struct DeleteActionStyles {
+    let backgroundColor: UIColor
 }
 
 final class WordTableController: NSObject, UITableViewDataSource, UITableViewDelegate {

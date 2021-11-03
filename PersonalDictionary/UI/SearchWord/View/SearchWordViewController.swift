@@ -30,7 +30,7 @@ final class SearchWordViewController: WordListViewController, SearchWordView {
 
     init(staticContent: SearchWordViewStaticContent, styles: WordListViewStyles) {
         self.searchStaticContent = staticContent
-        super.init(staticContent: staticContent.baseContent, styles: styles)
+        super.init(params: WordListViewParams(staticContent: staticContent.baseContent, styles: styles))
     }
 
     required init?(coder: NSCoder) {
