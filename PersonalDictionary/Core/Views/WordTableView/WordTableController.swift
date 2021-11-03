@@ -7,11 +7,35 @@
 
 import UIKit
 
+struct DeleteActionViewParams {
+
+    let staticContent: StaticContent
+    let styles: Styles
+
+    struct StaticContent {
+        let image: UIImage
+    }
+
+    struct Styles {
+        let backgroundColor: UIColor
+    }
+}
+
 final class WordTableController: NSObject, UITableViewDataSource, UITableViewDelegate {
 
-    var wordList: [WordItem] = []
+    var wordList: [WordItem]
 
-    var swipeToDeleteActionFactory: SwipeToDeleteActionFactory?
+    private let deleteActionViewParams: DeleteActionViewParams?
+    private var onDeleteTap: ((Int) -> Void)?
+
+    init(wordList: [WordItem],
+         onDeleteTap: ((Int) -> Void)?,
+         deleteActionViewParams: DeleteActionViewParams?) {
+        self.wordList = wordList
+        self.onDeleteTap = onDeleteTap
+        self.deleteActionViewParams = deleteActionViewParams
+        super.init()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         wordList.count
@@ -31,7 +55,18 @@ final class WordTableController: NSObject, UITableViewDataSource, UITableViewDel
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let deleteAction = swipeToDeleteActionFactory?.create(for: indexPath.row) else { return nil }
+        guard let onDeleteTap = onDeleteTap,
+              let deleteActionViewParams = deleteActionViewParams else {
+            return nil
+        }
+        let deleteAction = UIContextualAction(style: .normal, title: "",
+                                              handler: { (_, _, success: (Bool) -> Void) in
+                                                onDeleteTap(indexPath.row)
+                                                success(true)
+                                              })
+
+        deleteAction.image = deleteActionViewParams.staticContent.image
+        deleteAction.backgroundColor = deleteActionViewParams.styles.backgroundColor
 
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }

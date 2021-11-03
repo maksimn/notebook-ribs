@@ -17,14 +17,14 @@ final class WordListComponent: Component<EmptyDependency>, WordListDependency {
 
     let staticContent = WordListViewStaticContent(
         newWordButtonImage: UIImage(named: "icon-plus")!,
-        deleteAction: DeleteActionStaticContent(
+        deleteAction: DeleteActionViewParams.StaticContent(
             image: UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))!
         )
     )
 
     let styles = WordListViewStyles(
         backgroundColor: appBackgroundColor,
-        deleteAction: DeleteActionStyles(
+        deleteAction: DeleteActionViewParams.Styles(
             backgroundColor: UIColor(red: 1, green: 0.271, blue: 0.227, alpha: 1)
         )
     )

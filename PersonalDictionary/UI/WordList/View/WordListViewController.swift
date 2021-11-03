@@ -10,12 +10,12 @@ import UIKit
 
 struct WordListViewStaticContent {
     let newWordButtonImage: UIImage
-    let deleteAction: DeleteActionStaticContent
+    let deleteAction: DeleteActionViewParams.StaticContent
 }
 
 struct WordListViewStyles {
     let backgroundColor: UIColor
-    let deleteAction: DeleteActionStyles
+    let deleteAction: DeleteActionViewParams.Styles
 }
 
 class WordListViewController: UIViewController {
@@ -27,9 +27,15 @@ class WordListViewController: UIViewController {
 
     let searchBar = UISearchBar()
     let tableView = UITableView()
-    let tableController = WordTableController()
     let newWordButton = UIButton()
     let navigateToSearchButton = UIButton()
+
+    lazy var tableController: WordTableController = {
+        WordTableController(wordList: [],
+                            onDeleteTap: self.onDeleteWordTap,
+                            deleteActionViewParams: DeleteActionViewParams(staticContent: staticContent.deleteAction,
+                                                                           styles: styles.deleteAction))
+    }()
 
     init(staticContent: WordListViewStaticContent, styles: WordListViewStyles) {
         self.staticContent = staticContent

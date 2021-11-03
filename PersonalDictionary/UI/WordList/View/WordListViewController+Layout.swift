@@ -62,12 +62,6 @@ extension WordListViewController {
         tableView.snp.makeConstraints { make -> Void in
             make.edges.equalTo(view.safeAreaLayoutGuide).inset(tableViewEdgeInsets)
         }
-
-        tableController.swipeToDeleteActionFactory = SwipeToDeleteActionFactory(
-            staticContent: staticContent.deleteAction,
-            styles: styles.deleteAction,
-            onDeleteTap: onDeleteWordTap
-        )
     }
 
     @objc
