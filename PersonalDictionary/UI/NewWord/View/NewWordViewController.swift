@@ -18,12 +18,13 @@ struct NewWordViewStyles {
     let backgroundColor: UIColor
 }
 
+typealias NewWordViewParams = ViewParams<NewWordViewStaticContent, NewWordViewStyles>
+
 class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable, UITextFieldDelegate {
 
     weak var viewModel: NewWordViewModel?
 
-    let staticContent: NewWordViewStaticContent
-    let styles: NewWordViewStyles
+    let params: NewWordViewParams
 
     let contentView = UIView()
     let sourceLangLabel = UILabel()
@@ -35,9 +36,8 @@ class NewWordViewController: UIViewController, NewWordView, NewWordViewControlla
 
     private var isSelectingSourceLang: Bool = false
 
-    init(staticContent: NewWordViewStaticContent, styles: NewWordViewStyles) {
-        self.staticContent = staticContent
-        self.styles = styles
+    init(params: NewWordViewParams) {
+        self.params = params
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -61,8 +61,8 @@ class NewWordViewController: UIViewController, NewWordView, NewWordViewControlla
                                           onSelectLang: { [weak self] lang in
                                             self?.onSelectLang(lang)
                                           },
-                                          selectButtonTitle: staticContent.selectButtonTitle,
-                                          backgroundColor: styles.backgroundColor,
+                                          selectButtonTitle: params.staticContent.selectButtonTitle,
+                                          backgroundColor: params.styles.backgroundColor,
                                           isHidden: true)
 
         layoutLangPickerPopup()

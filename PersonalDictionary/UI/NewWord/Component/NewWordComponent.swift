@@ -11,18 +11,19 @@ final class NewWordComponent: Component<NewWordDependency> {
 
     let langRepository: LangRepository
 
-    let styles: NewWordViewStyles
-
-    let staticContent = NewWordViewStaticContent(
-        selectButtonTitle: NSLocalizedString("Select", comment: ""),
-        arrowText: NSLocalizedString("⇋", comment: ""),
-        okText: NSLocalizedString("OK", comment: ""),
-        textFieldPlaceholder: NSLocalizedString("Enter a new word", comment: "")
-    )
+    let viewParams: NewWordViewParams
 
     init(dependency: NewWordDependency, globalSettings: PDGlobalSettings) {
         self.langRepository = dependency.langRepository
-        styles = NewWordViewStyles(backgroundColor: globalSettings.appBackgroundColor)
+        viewParams = NewWordViewParams(
+            staticContent: NewWordViewStaticContent(
+                selectButtonTitle: NSLocalizedString("Select", comment: ""),
+                arrowText: NSLocalizedString("⇋", comment: ""),
+                okText: NSLocalizedString("OK", comment: ""),
+                textFieldPlaceholder: NSLocalizedString("Enter a new word", comment: "")
+            ),
+            styles: NewWordViewStyles(backgroundColor: globalSettings.appBackgroundColor)
+        )
         super.init(dependency: dependency)
     }
 }
