@@ -10,12 +10,17 @@ import RIBs
 // Declare 'fileprivate' dependencies that are only used by this RIB.
 final class WordListComponent: Component<EmptyDependency> {
 
-    let globalSettings: PDGlobalSettings
-
     let viewParams: WordListViewParams
+
+    lazy private(set) var wordListRepository: WordListRepository = { buildWordListRepository() }()
+
+    lazy private(set) var translationService: TranslationService = { buildTranslationService() }()
+
+    lazy private(set) var langRepository: LangRepository = { buildLangRepository() }()
 
     init(globalSettings: PDGlobalSettings) {
         self.globalSettings = globalSettings
+
         viewParams = WordListViewParams(
             staticContent: WordListViewStaticContent(
                 newWordButtonImage: UIImage(named: "icon-plus")!,
@@ -30,21 +35,18 @@ final class WordListComponent: Component<EmptyDependency> {
                 )
             )
         )
+
         super.init(dependency: EmptyComponent())
     }
 
-    var wordListRepository: WordListRepository {
-        buildWordListRepository()
-    }
+    // MARK: - private
 
-    var translationService: TranslationService {
-        buildTranslationService()
-    }
+    private let globalSettings: PDGlobalSettings
 
     private func buildTranslationService() -> TranslationService {
         let ponsApiData = PonsApiData(url: "https://api.pons.com/v1/dictionary",
                                       secretHeaderKey: "X-Secret",
-                                      secret: "")
+                                      secret: globalSettings.ponsApiSecret)
 
         return PonsTranslationService(apiData: ponsApiData,
                                       coreService: UrlSessionCoreService(),
@@ -60,31 +62,12 @@ final class WordListComponent: Component<EmptyDependency> {
         let coreWordListRepositoryArgs = CoreWordListRepositoryArgs(persistentContainerName: "StorageModel")
 
         return CoreWordListRepository(args: coreWordListRepositoryArgs,
-                                      langRepository: WordListComponent.langRepository,
+                                      langRepository: langRepository,
                                       logger: buildLogger())
     }
 
-    static let langRepository = buildLangRepository()
-
-    private static func buildLangRepository() -> LangRepository {
-        let langData = buildLangData()
-
-        return LangRepositoryImpl(userDefaults: UserDefaults.standard,
-                                  data: langData)
-    }
-
-    private static func buildLangData() -> LangData {
-        let lang1 = Lang(id: Lang.Id(raw: 1), name: NSLocalizedString("English", comment: ""), shortName: "EN")
-        let lang2 = Lang(id: Lang.Id(raw: 2), name: NSLocalizedString("Russian", comment: ""), shortName: "RU")
-        let lang3 = Lang(id: Lang.Id(raw: 3), name: NSLocalizedString("French", comment: ""), shortName: "FR")
-        let lang4 = Lang(id: Lang.Id(raw: 4), name: NSLocalizedString("Italian", comment: ""), shortName: "IT")
-
-        let langData = LangData(allLangs: [lang1, lang2, lang3, lang4],
-                                sourceLangKey: "io.github.maksimn.pd.sourceLang",
-                                targetLangKey: "io.github.maksimn.pd.targetLang",
-                                defaultSourceLang: lang1,
-                                defaultTargetLang: lang2)
-
-        return langData
+    private func buildLangRepository() -> LangRepository {
+        LangRepositoryImpl(userDefaults: UserDefaults.standard,
+                           data: globalSettings.langData)
     }
 }

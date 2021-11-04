@@ -7,13 +7,6 @@
 
 import RIBs
 
-extension WordListComponent: NewWordDependency {
-
-    var langRepository: LangRepository {
-        WordListComponent.langRepository
-    }
-}
-
 final class WordListBuilder: Builder<EmptyDependency>, WordListBuildable {
 
     init() {
@@ -48,14 +41,14 @@ final class WordListBuilder: Builder<EmptyDependency>, WordListBuildable {
 
 extension UINavigationController: WordListViewControllable {
 
-    func presentNewWord(viewController: ViewControllable) {
+    func present(viewController: ViewControllable) {
         let uiviewController = viewController.uiviewController
 
         uiviewController.modalPresentationStyle = .overFullScreen
         topViewController?.present(uiviewController, animated: true, completion: nil)
     }
 
-    func dismissNewWord(viewController: ViewControllable) {
+    func dismiss(viewController: ViewControllable) {
         viewController.uiviewController.dismiss(animated: true, completion: nil)
     }
 }

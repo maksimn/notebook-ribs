@@ -7,14 +7,18 @@
 
 import RIBs
 
+// Declare methods the interactor can invoke to manage sub-tree via the router.
 protocol WordListRouting: LaunchRouting {
-    // Declare methods the interactor can invoke to manage sub-tree via the router.
+
     func routeToNewWord()
+
     func hideNewWord()
 }
 
+// Declare methods the router invokes to manipulate the view hierarchy.
 protocol WordListViewControllable: ViewControllable {
-    // Declare methods the router invokes to manipulate the view hierarchy.
-    func presentNewWord(viewController: ViewControllable)
-    func dismissNewWord(viewController: ViewControllable)
+
+    func present(viewController: ViewControllable)
+
+    func dismiss(viewController: ViewControllable)
 }

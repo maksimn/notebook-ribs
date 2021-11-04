@@ -12,4 +12,8 @@ struct PDGlobalSettings {
     let isLoggingEnabled: Bool
 
     let appBackgroundColor: UIColor
+
+    let langData: LangData
+
+    let ponsApiSecret: String
 }

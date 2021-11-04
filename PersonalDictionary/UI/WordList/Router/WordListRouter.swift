@@ -12,7 +12,6 @@ final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewContr
     private let newWordBuilder: NewWordBuildable
     private var newWord: NewWordRouting?
 
-    //  Constructor inject child builder protocols to allow building children.
     init(interactor: WordListInteractable,
          viewController: WordListViewControllable,
          newWordBuilder: NewWordBuildable) {
@@ -26,13 +25,13 @@ final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewContr
 
         self.newWord = newWord
         attachChild(newWord)
-        viewController.presentNewWord(viewController: newWord.viewControllable)
+        viewController.present(viewController: newWord.viewControllable)
     }
 
     func hideNewWord() {
         if let newWord = newWord {
             detachChild(newWord)
-            viewController.dismissNewWord(viewController: newWord.viewControllable)
+            viewController.dismiss(viewController: newWord.viewControllable)
             self.newWord = nil
         }
     }
