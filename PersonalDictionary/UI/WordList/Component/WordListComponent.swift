@@ -8,26 +8,30 @@
 import RIBs
 
 // Declare 'fileprivate' dependencies that are only used by this RIB.
-final class WordListComponent: Component<EmptyDependency>, WordListDependency {
+final class WordListComponent: Component<EmptyDependency> {
 
-    init() {
-        super.init(dependency: EmptyComponent())
-    }
+    let globalSettings: PDGlobalSettings
 
-    let viewParams = WordListViewParams(
-        staticContent: WordListViewStaticContent(
-            newWordButtonImage: UIImage(named: "icon-plus")!,
-            deleteAction: DeleteActionStaticContent(
-                image: UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))!
-            )
-        ),
-        styles: WordListViewStyles(
-            backgroundColor: appBackgroundColor,
-            deleteAction: DeleteActionStyles(
-                backgroundColor: UIColor(red: 1, green: 0.271, blue: 0.227, alpha: 1)
+    let viewParams: WordListViewParams
+
+    init(globalSettings: PDGlobalSettings) {
+        self.globalSettings = globalSettings
+        viewParams = WordListViewParams(
+            staticContent: WordListViewStaticContent(
+                newWordButtonImage: UIImage(named: "icon-plus")!,
+                deleteAction: DeleteActionStaticContent(
+                    image: UIImage(systemName: "trash", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))!
+                )
+            ),
+            styles: WordListViewStyles(
+                backgroundColor: globalSettings.appBackgroundColor,
+                deleteAction: DeleteActionStyles(
+                    backgroundColor: UIColor(red: 1, green: 0.271, blue: 0.227, alpha: 1)
+                )
             )
         )
-    )
+        super.init(dependency: EmptyComponent())
+    }
 
     var wordListRepository: WordListRepository {
         buildWordListRepository()
@@ -49,7 +53,7 @@ final class WordListComponent: Component<EmptyDependency>, WordListDependency {
     }
 
     private func buildLogger() -> Logger {
-        SimpleLogger()
+        SimpleLogger(isLoggingEnabled: globalSettings.isLoggingEnabled)
     }
 
     private func buildWordListRepository() -> WordListRepository {

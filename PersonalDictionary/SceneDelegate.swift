@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         self.window = window
 
-        let wordListBuilder = WordListBuilder(dependency: WordListComponent())
+        let wordListBuilder = WordListBuilder()
         let wordListRouter = wordListBuilder.build()
 
         self.wordListRouter = wordListRouter

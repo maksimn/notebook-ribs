@@ -14,14 +14,14 @@ extension WordListComponent: NewWordDependency {
     }
 }
 
-final class WordListBuilder: Builder<WordListDependency>, WordListBuildable {
+final class WordListBuilder: Builder<EmptyDependency>, WordListBuildable {
 
-    override init(dependency: WordListDependency) {
-        super.init(dependency: dependency)
+    init() {
+        super.init(dependency: EmptyComponent())
     }
 
     func build() -> WordListRouting {
-        let component = WordListComponent()
+        let component = WordListComponent(globalSettings: pdGlobalSettings)
         let navigationController = UINavigationController()
         let viewController = WordListViewController(params: component.viewParams)
 

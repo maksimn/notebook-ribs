@@ -14,7 +14,7 @@ final class NewWordBuilder: Builder<NewWordDependency>, NewWordBuildable {
     }
 
     func build(withListener listener: NewWordListener) -> NewWordRouting {
-        let component = NewWordComponent(dependency: dependency)
+        let component = NewWordComponent(dependency: dependency, globalSettings: pdGlobalSettings)
 
         let viewController = NewWordViewController(staticContent: component.staticContent,
                                                    styles: component.styles)

@@ -11,10 +11,7 @@ final class NewWordComponent: Component<NewWordDependency> {
 
     let langRepository: LangRepository
 
-    override init(dependency: NewWordDependency) {
-        self.langRepository = dependency.langRepository
-        super.init(dependency: dependency)
-    }
+    let styles: NewWordViewStyles
 
     let staticContent = NewWordViewStaticContent(
         selectButtonTitle: NSLocalizedString("Select", comment: ""),
@@ -23,5 +20,9 @@ final class NewWordComponent: Component<NewWordDependency> {
         textFieldPlaceholder: NSLocalizedString("Enter a new word", comment: "")
     )
 
-    let styles = NewWordViewStyles(backgroundColor: appBackgroundColor)
+    init(dependency: NewWordDependency, globalSettings: PDGlobalSettings) {
+        self.langRepository = dependency.langRepository
+        styles = NewWordViewStyles(backgroundColor: globalSettings.appBackgroundColor)
+        super.init(dependency: dependency)
+    }
 }
