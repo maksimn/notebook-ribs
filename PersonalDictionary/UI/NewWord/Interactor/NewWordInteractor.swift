@@ -6,7 +6,6 @@
 //
 
 import RIBs
-import RxSwift
 
 protocol NewWordListener: AnyObject {
     // Declare methods the interactor can invoke to communicate with other RIBs.
@@ -17,14 +16,32 @@ protocol NewWordListener: AnyObject {
 
 final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordInteractable {
 
-    weak var router: NewWordRouting?
     weak var listener: NewWordListener?
 
     weak var viewModel: NewWordViewModel?
 
     private var langRepository: LangRepository
 
-    // Add additional dependencies to constructor. Do not perform any logic in constructor.
+    private(set) var allLangs: [Lang] = [] {
+        didSet {
+            viewModel?.allLangs = allLangs
+        }
+    }
+
+    private(set) var sourceLang: Lang = empty {
+        didSet {
+            viewModel?.sourceLang = sourceLang
+        }
+    }
+
+    private(set) var targetLang: Lang = empty {
+        didSet {
+            viewModel?.targetLang = targetLang
+        }
+    }
+
+    private static let empty = Lang(id: Lang.Id(raw: -1), name: "", shortName: "")
+
     init(viewModel: NewWordViewModel, langRepository: LangRepository) {
         self.langRepository = langRepository
         self.viewModel = viewModel
@@ -36,28 +53,19 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
         fetchData()
     }
 
-    override func willResignActive() {
-        super.willResignActive()
-        // Pause any business logic.
-    }
-
-    private func fetchData() {
-        viewModel?.allLangs = langRepository.allLangs
-        viewModel?.sourceLang = langRepository.sourceLang
-        viewModel?.targetLang = langRepository.targetLang
-    }
-
     func save(sourceLang: Lang) {
         langRepository.sourceLang = sourceLang
+        self.sourceLang = sourceLang
     }
 
     func save(targetLang: Lang) {
         langRepository.targetLang = targetLang
+        self.targetLang = targetLang
     }
 
-    func sendNewWord(_ text: String) {
-        let text = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty,
+    func sendNewWord() {
+        guard let text = viewModel?.text.trimmingCharacters(in: .whitespacesAndNewlines),
+              !text.isEmpty,
               let sourceLang = viewModel?.sourceLang,
               let targetLang = viewModel?.targetLang else {
             return
@@ -69,5 +77,11 @@ final class NewWordInteractor: PresentableInteractor<NewWordViewModel>, NewWordI
 
     func dismiss() {
         listener?.dismissNewWord()
+    }
+
+    private func fetchData() {
+        allLangs = langRepository.allLangs
+        sourceLang = langRepository.sourceLang
+        targetLang = langRepository.targetLang
     }
 }

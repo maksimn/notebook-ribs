@@ -31,19 +31,25 @@ class NewWordViewModelImpl: NewWordViewModel {
     var sourceLang: Lang = empty {
         didSet {
             view.set(sourceLang: sourceLang)
-            interactor?.save(sourceLang: sourceLang)
         }
     }
 
     var targetLang: Lang = empty {
         didSet {
             view.set(targetLang: targetLang)
-            interactor?.save(targetLang: targetLang)
         }
     }
 
+    func save(sourceLang: Lang) {
+        interactor?.save(sourceLang: sourceLang)
+    }
+
+    func save(targetLang: Lang) {
+        interactor?.save(targetLang: targetLang)
+    }
+
     func sendNewWord() {
-        interactor?.sendNewWord(text)
+        interactor?.sendNewWord()
     }
 
     func dismiss() {

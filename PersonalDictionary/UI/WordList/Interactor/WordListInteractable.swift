@@ -11,9 +11,9 @@ protocol WordListInteractable: Interactable, NewWordListener {
 
     var router: WordListRouting? { get set }
 
-    var listener: WordListListener? { get set }
-
-    func removeFromRepository(_ wordItem: WordItem)
+    func remove(_ wordItem: WordItem, at position: Int)
 
     func navigateToNewWord()
+
+    func navigateToSearch()
 }

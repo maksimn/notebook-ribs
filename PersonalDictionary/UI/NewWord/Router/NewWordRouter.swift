@@ -16,6 +16,5 @@ final class NewWordRouter: ViewableRouter<NewWordInteractable, NewWordViewContro
     // Constructor inject child builder protocols to allow building children.
     override init(interactor: NewWordInteractable, viewController: NewWordViewControllable) {
         super.init(interactor: interactor, viewController: viewController)
-        interactor.router = self
     }
 }

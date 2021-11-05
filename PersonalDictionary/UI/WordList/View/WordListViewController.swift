@@ -5,20 +5,7 @@
 //  Created by Maxim Ivanov on 30.09.2021.
 //
 
-import RIBs
 import UIKit
-
-typealias WordListViewParams = ViewParams<WordListViewStaticContent, WordListViewStyles>
-
-struct WordListViewStaticContent {
-    let newWordButtonImage: UIImage
-    let deleteAction: DeleteActionStaticContent
-}
-
-struct WordListViewStyles {
-    let backgroundColor: UIColor
-    let deleteAction: DeleteActionStyles
-}
 
 class WordListViewController: UIViewController, WordListView {
 
@@ -36,7 +23,9 @@ class WordListViewController: UIViewController, WordListView {
     }()
 
     lazy var tableActions: WordTableDelegate = {
-        WordTableDelegate(onDeleteTap: self.onDeleteWordTap,
+        WordTableDelegate(onDeleteTap: { [weak self] position in
+                            self?.onDeleteWordTap(position)
+                          },
                           deleteActionViewParams: DeleteActionViewParams(
                             staticContent: params.staticContent.deleteAction,
                             styles: params.styles.deleteAction
@@ -74,7 +63,7 @@ class WordListViewController: UIViewController, WordListView {
     func onDeleteWordTap(_ position: Int) {
         let item = tableDataSource.wordList[position]
 
-        viewModel?.remove(item, position)
+        viewModel?.remove(item, at: position)
     }
 
     @objc

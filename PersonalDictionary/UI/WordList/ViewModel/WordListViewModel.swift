@@ -14,19 +14,20 @@ class WordListViewModel: WordListViewModellable {
         self.view = view
     }
 
-    func add(_ wordItem: WordItem) {
-        wordList.append(wordItem)
+    var wordList: [WordItem] = [] {
+        didSet {
+            view.set(wordList: wordList)
+        }
     }
 
-    func update(_ wordItem: WordItem, _ position: Int) {
-        view.set(changedItemPosition: position)
-        wordList[position] = wordItem
+    var changedItemPosition: Int = -1 {
+        didSet {
+            view.set(changedItemPosition: changedItemPosition)
+        }
     }
 
-    func remove(_ wordItem: WordItem, _ position: Int) {
-        view.set(changedItemPosition: position)
-        wordList.remove(at: position)
-        interactor?.removeFromRepository(wordItem)
+    func remove(_ wordItem: WordItem, at position: Int) {
+        interactor?.remove(wordItem, at: position)
     }
 
     func navigateToNewWord() {
@@ -34,11 +35,6 @@ class WordListViewModel: WordListViewModellable {
     }
 
     func navigateToSearch() {
-    }
-
-    var wordList: [WordItem] = [] {
-        didSet {
-            view.set(wordList: wordList)
-        }
+        interactor?.navigateToSearch()
     }
 }

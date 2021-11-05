@@ -9,8 +9,6 @@ import RIBs
 
 protocol NewWordInteractable: Interactable {
 
-    var router: NewWordRouting? { get set }
-
     var listener: NewWordListener? { get set }
 
     var viewModel: NewWordViewModel? { get set }
@@ -19,7 +17,7 @@ protocol NewWordInteractable: Interactable {
 
     func save(targetLang: Lang)
 
-    func sendNewWord(_ text: String)
+    func sendNewWord()
 
     func dismiss()
 }

@@ -9,11 +9,9 @@ protocol WordListViewModellable: AnyObject {
 
     var wordList: [WordItem] { get set }
 
-    func add(_ wordItem: WordItem)
+    var changedItemPosition: Int { get set }
 
-    func update(_ wordItem: WordItem, _ position: Int)
-
-    func remove(_ wordItem: WordItem, _ position: Int)
+    func remove(_ wordItem: WordItem, at position: Int)
 
     func navigateToNewWord()
 

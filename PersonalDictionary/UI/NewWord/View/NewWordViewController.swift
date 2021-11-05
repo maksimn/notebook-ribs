@@ -7,19 +7,6 @@
 
 import UIKit
 
-struct NewWordViewStaticContent {
-    let selectButtonTitle: String
-    let arrowText: String
-    let okText: String
-    let textFieldPlaceholder: String
-}
-
-struct NewWordViewStyles {
-    let backgroundColor: UIColor
-}
-
-typealias NewWordViewParams = ViewParams<NewWordViewStaticContent, NewWordViewStyles>
-
 class NewWordViewController: UIViewController, NewWordView, NewWordViewControllable, UITextFieldDelegate {
 
     weak var viewModel: NewWordViewModel?
@@ -99,9 +86,9 @@ class NewWordViewController: UIViewController, NewWordView, NewWordViewControlla
         langPickerPopup?.isHidden = true
 
         if isSelectingSourceLang {
-            viewModel?.sourceLang = lang
+            viewModel?.save(sourceLang: lang)
         } else {
-            viewModel?.targetLang = lang
+            viewModel?.save(targetLang: lang)
         }
     }
 
