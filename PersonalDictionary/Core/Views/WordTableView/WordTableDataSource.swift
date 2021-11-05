@@ -7,17 +7,7 @@
 
 import UIKit
 
-typealias DeleteActionViewParams = ViewParams<DeleteActionStaticContent, DeleteActionStyles>
-
-struct DeleteActionStaticContent {
-    let image: UIImage
-}
-
-struct DeleteActionStyles {
-    let backgroundColor: UIColor
-}
-
-final class WordTableController: NSObject, UITableViewDataSource, UITableViewDelegate {
+final class WordTableDataSource: NSObject, UITableViewDataSource {
 
     var changedItemPosition: Int = -1
 
@@ -32,19 +22,12 @@ final class WordTableController: NSObject, UITableViewDataSource, UITableViewDel
 
     private var previousWordCount = -1
 
-    private let deleteActionViewParams: DeleteActionViewParams?
-    private var onDeleteTap: ((Int) -> Void)?
-
     private unowned let tableView: UITableView
 
     init(tableView: UITableView,
-         wordList: [WordItem],
-         onDeleteTap: ((Int) -> Void)?,
-         deleteActionViewParams: DeleteActionViewParams?) {
+         wordList: [WordItem]) {
         self.tableView = tableView
         self.wordList = wordList
-        self.onDeleteTap = onDeleteTap
-        self.deleteActionViewParams = deleteActionViewParams
         super.init()
     }
 
@@ -64,26 +47,6 @@ final class WordTableController: NSObject, UITableViewDataSource, UITableViewDel
         cell.set(wordItem: wordItem)
 
         return cell
-    }
-
-    // MARK: - UITableViewDelegate
-
-    func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let onDeleteTap = onDeleteTap,
-              let deleteActionViewParams = deleteActionViewParams else {
-            return nil
-        }
-        let deleteAction = UIContextualAction(style: .normal, title: "",
-                                              handler: { (_, _, success: (Bool) -> Void) in
-                                                onDeleteTap(indexPath.row)
-                                                success(true)
-                                              })
-
-        deleteAction.image = deleteActionViewParams.staticContent.image
-        deleteAction.backgroundColor = deleteActionViewParams.styles.backgroundColor
-
-        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
     // MARK: - Private

@@ -31,14 +31,16 @@ class WordListViewController: UIViewController, WordListView {
     let newWordButton = UIButton()
     let navigateToSearchButton = UIButton()
 
-    lazy var tableController: WordTableController = {
-        WordTableController(tableView: tableView,
-                            wordList: [],
-                            onDeleteTap: self.onDeleteWordTap,
-                            deleteActionViewParams: DeleteActionViewParams(
-                                staticContent: params.staticContent.deleteAction,
-                                styles: params.styles.deleteAction
-                            )
+    lazy var tableDataSource: WordTableDataSource = {
+        WordTableDataSource(tableView: tableView, wordList: [])
+    }()
+
+    lazy var tableActions: WordTableDelegate = {
+        WordTableDelegate(onDeleteTap: self.onDeleteWordTap,
+                          deleteActionViewParams: DeleteActionViewParams(
+                            staticContent: params.staticContent.deleteAction,
+                            styles: params.styles.deleteAction
+                          )
         )
     }()
 
@@ -59,18 +61,18 @@ class WordListViewController: UIViewController, WordListView {
     // MARK: - WordListView
 
     func set(changedItemPosition: Int) {
-        tableController.changedItemPosition = changedItemPosition
+        tableDataSource.changedItemPosition = changedItemPosition
     }
 
     func set(wordList: [WordItem]) {
-        tableController.wordList = wordList
+        tableDataSource.wordList = wordList
     }
 
     // MARK: - User Action Handlers
 
     @objc
     func onDeleteWordTap(_ position: Int) {
-        let item = tableController.wordList[position]
+        let item = tableDataSource.wordList[position]
 
         viewModel?.remove(item, position)
     }

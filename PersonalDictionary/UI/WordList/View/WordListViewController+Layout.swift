@@ -55,8 +55,8 @@ extension WordListViewController {
         tableView.layer.cornerRadius = 16
         tableView.rowHeight = WordItemCell.height
         tableView.register(WordItemCell.self, forCellReuseIdentifier: "\(WordItemCell.self)")
-        tableView.dataSource = tableController
-        tableView.delegate = tableController
+        tableView.dataSource = tableDataSource
+        tableView.delegate = tableActions
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
         tableView.snp.makeConstraints { make -> Void in
