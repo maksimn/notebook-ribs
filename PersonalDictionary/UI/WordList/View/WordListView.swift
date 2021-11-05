@@ -7,13 +7,7 @@
 
 protocol WordListView: AnyObject {
 
+    func set(changedItemPosition: Int)
+
     func set(wordList: [WordItem])
-
-    func addNewRowToList()
-
-    func updateRowAt(_ position: Int)
-
-    func removeRowAt(_ position: Int)
-
-    func reloadList()
 }

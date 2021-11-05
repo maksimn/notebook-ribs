@@ -68,9 +68,4 @@ extension SearchWordViewController {
             make.right.equalTo(view.safeAreaLayoutGuide.snp.right).offset(-22)
         }
     }
-
-    @objc
-    override var tableViewEdgeInsets: UIEdgeInsets {
-        UIEdgeInsets(top: 54, left: 12, bottom: 0, right: 12)
-    }
 }

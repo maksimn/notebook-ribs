@@ -20,7 +20,7 @@ struct WordListViewStyles {
     let deleteAction: DeleteActionStyles
 }
 
-class WordListViewController: UIViewController {
+class WordListViewController: UIViewController, WordListView {
 
     var viewModel: WordListViewModel?
 
@@ -32,7 +32,8 @@ class WordListViewController: UIViewController {
     let navigateToSearchButton = UIButton()
 
     lazy var tableController: WordTableController = {
-        WordTableController(wordList: [],
+        WordTableController(tableView: tableView,
+                            wordList: [],
                             onDeleteTap: self.onDeleteWordTap,
                             deleteActionViewParams: DeleteActionViewParams(
                                 staticContent: params.staticContent.deleteAction,
@@ -54,39 +55,18 @@ class WordListViewController: UIViewController {
         super.viewDidLoad()
         initViews()
     }
-}
 
-extension WordListViewController: WordListView {
+    // MARK: - WordListView
+
+    func set(changedItemPosition: Int) {
+        tableController.changedItemPosition = changedItemPosition
+    }
 
     func set(wordList: [WordItem]) {
         tableController.wordList = wordList
     }
 
-    func addNewRowToList() {
-        let count = tableController.wordList.count - 1
-
-        tableView.insertRows(at: [IndexPath(row: count, section: 0)], with: .automatic)
-    }
-
-    func updateRowAt(_ position: Int) {
-        guard position > -1 && position < tableController.wordList.count else { return }
-
-        tableView.reloadRows(at: [IndexPath(row: position, section: 0)], with: .automatic)
-    }
-
-    func removeRowAt(_ position: Int) {
-        guard position > -1 && position <= tableController.wordList.count else { return }
-
-        tableView.deleteRows(at: [IndexPath(row: position, section: 0)], with: .automatic)
-    }
-
-    func reloadList() {
-        tableView.reloadData()
-    }
-}
-
-// User Action Handlers:
-extension WordListViewController {
+    // MARK: - User Action Handlers
 
     @objc
     func onDeleteWordTap(_ position: Int) {

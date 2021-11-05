@@ -10,10 +10,6 @@ class WordListViewModel: WordListViewModellable {
     unowned let view: WordListView
     weak var interactor: WordListInteractable?
 
-    private var previousWordCount = -1
-    private var removedItemPosition = -1
-    private var updatedItemPosition = -1
-
     init(view: WordListView) {
         self.view = view
     }
@@ -23,12 +19,12 @@ class WordListViewModel: WordListViewModellable {
     }
 
     func update(_ wordItem: WordItem, _ position: Int) {
-        updatedItemPosition = position
+        view.set(changedItemPosition: position)
         wordList[position] = wordItem
     }
 
     func remove(_ wordItem: WordItem, _ position: Int) {
-        removedItemPosition = position
+        view.set(changedItemPosition: position)
         wordList.remove(at: position)
         interactor?.removeFromRepository(wordItem)
     }
@@ -41,21 +37,8 @@ class WordListViewModel: WordListViewModellable {
     }
 
     var wordList: [WordItem] = [] {
-        willSet {
-            previousWordCount = wordList.count
-        }
         didSet {
-            view.set(wordList: self.wordList)
-
-            if wordList.count == previousWordCount - 1 {
-                view.removeRowAt(removedItemPosition)
-            } else if wordList.count == previousWordCount {
-                view.updateRowAt(updatedItemPosition)
-            } else if wordList.count == previousWordCount + 1 {
-                view.addNewRowToList()
-            } else {
-                view.reloadList()
-            }
+            view.set(wordList: wordList)
         }
     }
 }
