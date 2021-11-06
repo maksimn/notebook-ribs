@@ -6,22 +6,15 @@
 //
 
 import RIBs
-import RxSwift
 
 final class WordListInteractor: PresentableInteractor<WordListViewModellable>, WordListInteractable {
 
     private let wordListRepository: WordListRepository
     private let translationService: TranslationService
 
-    private var wordList: [WordItem] = [] {
+    private var data: WordListData = WordListData(wordList: [], changedItemPosition: nil) {
         didSet {
-            viewModel?.wordList = wordList
-        }
-    }
-
-    private var changedItemPosition: Int = -1 {
-        didSet {
-            viewModel?.changedItemPosition = changedItemPosition
+            viewModel?.wordListData = data
         }
     }
 
@@ -47,8 +40,10 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
     weak var router: WordListRouting?
 
     func remove(_ wordItem: WordItem, at position: Int) {
-        changedItemPosition = position
+        var wordList = data.wordList
+
         wordList.remove(at: position)
+        data = WordListData(wordList: wordList, changedItemPosition: position)
         wordListRepository.remove(with: wordItem.id, completion: nil)
     }
 
@@ -57,17 +52,18 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
     }
 
     func navigateToSearch() {
-
+        router?.routeToSearch()
     }
 
     // MARK: - NewWordListener
 
     func addNewWord(_ wordItem: WordItem) {
-        let position = wordList.count
+        var wordList = data.wordList
 
         wordList.append(wordItem)
+        data = WordListData(wordList: wordList, changedItemPosition: nil)
         wordListRepository.add(wordItem, completion: nil)
-        requestTranslation(for: wordItem, position)
+        requestTranslation(for: wordItem, data.wordList.count - 1)
     }
 
     func dismissNewWord() {
@@ -77,12 +73,12 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
     // MARK: - Private
 
     private func fetchWordList() {
-        wordList = wordListRepository.wordList
+        data = WordListData(wordList: wordListRepository.wordList, changedItemPosition: nil)
     }
 
     private func requestTranslationsIfNeeded() {
-        for position in 0..<wordList.count where wordList[position].translation == nil {
-            requestTranslation(for: wordList[position], position)
+        for position in 0..<data.wordList.count where data.wordList[position].translation == nil {
+            requestTranslation(for: data.wordList[position], position)
         }
     }
 
@@ -90,11 +86,16 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
         translationService.fetchTranslation(for: wordItem, { [weak self] result in
             switch result {
             case .success(let translation):
-                let updatedWordItem = wordItem.update(translation: translation)
+                guard let self = self else { return }
 
-                self?.wordListRepository.update(updatedWordItem, completion: nil)
-                self?.changedItemPosition = position
-                self?.wordList[position] = updatedWordItem
+                let updatedWordItem = wordItem.update(translation: translation)
+                var wordList = self.data.wordList
+
+                guard position > -1 && position < wordList.count else { return }
+
+                wordList[position] = updatedWordItem
+                self.wordListRepository.update(updatedWordItem, completion: nil)
+                self.data = WordListData(wordList: wordList, changedItemPosition: position)
             case .failure:
                 break
             }

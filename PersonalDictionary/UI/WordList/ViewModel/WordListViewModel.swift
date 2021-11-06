@@ -14,15 +14,9 @@ class WordListViewModel: WordListViewModellable {
         self.view = view
     }
 
-    var wordList: [WordItem] = [] {
+    var wordListData: WordListData = WordListData(wordList: [], changedItemPosition: nil) {
         didSet {
-            view.set(wordList: wordList)
-        }
-    }
-
-    var changedItemPosition: Int = -1 {
-        didSet {
-            view.set(changedItemPosition: changedItemPosition)
+            view.set(wordListData)
         }
     }
 

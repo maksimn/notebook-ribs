@@ -19,7 +19,7 @@ class WordListViewController: UIViewController, WordListView {
     let navigateToSearchButton = UIButton()
 
     lazy var tableDataSource: WordTableDataSource = {
-        WordTableDataSource(tableView: tableView, wordList: [])
+        WordTableDataSource(tableView: tableView, data: WordListData(wordList: [], changedItemPosition: nil))
     }()
 
     lazy var tableActions: WordTableDelegate = {
@@ -49,19 +49,15 @@ class WordListViewController: UIViewController, WordListView {
 
     // MARK: - WordListView
 
-    func set(changedItemPosition: Int) {
-        tableDataSource.changedItemPosition = changedItemPosition
-    }
-
-    func set(wordList: [WordItem]) {
-        tableDataSource.wordList = wordList
+    func set(_ wordListData: WordListData) {
+        tableDataSource.data = wordListData
     }
 
     // MARK: - User Action Handlers
 
     @objc
     func onDeleteWordTap(_ position: Int) {
-        let item = tableDataSource.wordList[position]
+        let item = tableDataSource.data.wordList[position]
 
         viewModel?.remove(item, at: position)
     }

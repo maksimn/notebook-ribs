@@ -35,4 +35,8 @@ final class WordListRouter: LaunchRouter<WordListInteractable, WordListViewContr
             self.newWord = nil
         }
     }
+
+    func routeToSearch() {
+
+    }
 }

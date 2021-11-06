@@ -13,6 +13,8 @@ protocol WordListRouting: LaunchRouting {
     func routeToNewWord()
 
     func hideNewWord()
+
+    func routeToSearch()
 }
 
 // Declare methods the router invokes to manipulate the view hierarchy.

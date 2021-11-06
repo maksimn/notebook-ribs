@@ -51,6 +51,7 @@
 		59760252271115770077B5F7 /* JsonCoderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59760251271115770077B5F7 /* JsonCoderImpl.swift */; };
 		598232592736737A00D958D9 /* WordListViewParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598232582736737A00D958D9 /* WordListViewParams.swift */; };
 		5982325E273673C600D958D9 /* NewWordViewParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5982325D273673C600D958D9 /* NewWordViewParams.swift */; };
+		5982326E273689DD00D958D9 /* WordListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5982326D273689DD00D958D9 /* WordListData.swift */; };
 		598385A6272B87F9007B344D /* NewWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385A5272B87F9007B344D /* NewWordViewModel.swift */; };
 		598385AB272B8837007B344D /* NewWordViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385AA272B8837007B344D /* NewWordViewModelImpl.swift */; };
 		598385B3272B8902007B344D /* NewWordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385AF272B8902007B344D /* NewWordRouter.swift */; };
@@ -151,6 +152,7 @@
 		59760251271115770077B5F7 /* JsonCoderImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCoderImpl.swift; sourceTree = "<group>"; };
 		598232582736737A00D958D9 /* WordListViewParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewParams.swift; sourceTree = "<group>"; };
 		5982325D273673C600D958D9 /* NewWordViewParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewParams.swift; sourceTree = "<group>"; };
+		5982326D273689DD00D958D9 /* WordListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListData.swift; sourceTree = "<group>"; };
 		598385A5272B87F9007B344D /* NewWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewModel.swift; sourceTree = "<group>"; };
 		598385AA272B8837007B344D /* NewWordViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewModelImpl.swift; sourceTree = "<group>"; };
 		598385AF272B8902007B344D /* NewWordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordRouter.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 				596B95CB2706AC35004CE7E6 /* Lang.swift */,
 				59B82822273434A2007D8EA7 /* LangData.swift */,
 				59A942F8270CE6C80076F08B /* WordItem.swift */,
+				5982326D273689DD00D958D9 /* WordListData.swift */,
 			);
 			path = DataClass;
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				59A94319270DED370076F08B /* WordListRepository.swift in Sources */,
 				59A942E6270C52BF0076F08B /* WordListView.swift in Sources */,
 				5953CB3927062EF2006537B9 /* LangRepository.swift in Sources */,
+				5982326E273689DD00D958D9 /* WordListData.swift in Sources */,
 				5958D534272A9E460019D55E /* WordListViewModellable.swift in Sources */,
 				59E037942712226800197F19 /* PonsResponseData.swift in Sources */,
 				5953CB2227062830006537B9 /* NewWordViewController.swift in Sources */,

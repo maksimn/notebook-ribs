@@ -7,7 +7,5 @@
 
 protocol WordListView: AnyObject {
 
-    func set(changedItemPosition: Int)
-
-    func set(wordList: [WordItem])
+    func set(_ wordListData: WordListData)
 }

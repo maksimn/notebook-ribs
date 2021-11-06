@@ -7,9 +7,7 @@
 
 protocol WordListViewModellable: AnyObject {
 
-    var wordList: [WordItem] { get set }
-
-    var changedItemPosition: Int { get set }
+    var wordListData: WordListData { get set }
 
     func remove(_ wordItem: WordItem, at position: Int)
 

@@ -9,11 +9,9 @@ import UIKit
 
 final class WordTableDataSource: NSObject, UITableViewDataSource {
 
-    var changedItemPosition: Int = -1
-
-    var wordList: [WordItem] {
+    var data: WordListData {
         willSet {
-            previousWordCount = wordList.count
+            previousWordCount = data.wordList.count
         }
         didSet {
             updateTableView()
@@ -25,16 +23,16 @@ final class WordTableDataSource: NSObject, UITableViewDataSource {
     private unowned let tableView: UITableView
 
     init(tableView: UITableView,
-         wordList: [WordItem]) {
+         data: WordListData) {
         self.tableView = tableView
-        self.wordList = wordList
+        self.data = data
         super.init()
     }
 
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        wordList.count
+        data.wordList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,7 +40,7 @@ final class WordTableDataSource: NSObject, UITableViewDataSource {
                                                        for: indexPath) as? WordItemCell else {
             return UITableViewCell()
         }
-        let wordItem = wordList[indexPath.row]
+        let wordItem = data.wordList[indexPath.row]
 
         cell.set(wordItem: wordItem)
 
@@ -52,12 +50,20 @@ final class WordTableDataSource: NSObject, UITableViewDataSource {
     // MARK: - Private
 
     private func updateTableView() {
+        let wordList = data.wordList
+
         if wordList.count == previousWordCount - 1 {
-            guard changedItemPosition > -1 && changedItemPosition <= wordList.count else { return }
+            guard let changedItemPosition = verifyChangedItemPosition() else {
+                tableView.reloadData()
+                return
+            }
 
             tableView.deleteRows(at: [IndexPath(row: changedItemPosition, section: 0)], with: .automatic)
         } else if wordList.count == previousWordCount {
-            guard changedItemPosition > -1 && changedItemPosition < wordList.count else { return }
+            guard let changedItemPosition = verifyChangedItemPosition() else {
+                tableView.reloadData()
+                return
+            }
 
             tableView.reloadRows(at: [IndexPath(row: changedItemPosition, section: 0)], with: .automatic)
         } else if wordList.count == previousWordCount + 1 {
@@ -67,5 +73,13 @@ final class WordTableDataSource: NSObject, UITableViewDataSource {
         } else {
             tableView.reloadData()
         }
+    }
+
+    private func verifyChangedItemPosition() -> Int? {
+        guard let changedItemPosition = data.changedItemPosition,
+              changedItemPosition > -1 && changedItemPosition <= data.wordList.count else {
+            return nil
+        }
+        return changedItemPosition
     }
 }
