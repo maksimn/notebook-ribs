@@ -67,9 +67,12 @@ final class WordTableDataSource: NSObject, UITableViewDataSource {
 
             tableView.reloadRows(at: [IndexPath(row: changedItemPosition, section: 0)], with: .automatic)
         } else if wordList.count == previousWordCount + 1 {
-            let count = wordList.count - 1
+            guard let changedItemPosition = verifyChangedItemPosition() else {
+                tableView.reloadData()
+                return
+            }
 
-            tableView.insertRows(at: [IndexPath(row: count, section: 0)], with: .automatic)
+            tableView.insertRows(at: [IndexPath(row: changedItemPosition, section: 0)], with: .automatic)
         } else {
             tableView.reloadData()
         }

@@ -60,8 +60,8 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
     func addNewWord(_ wordItem: WordItem) {
         var wordList = data.wordList
 
-        wordList.append(wordItem)
-        data = WordListData(wordList: wordList, changedItemPosition: nil)
+        wordList.insert(wordItem, at: 0)
+        data = WordListData(wordList: wordList, changedItemPosition: 0)
         wordListRepository.add(wordItem, completion: nil)
         requestTranslation(for: wordItem, data.wordList.count - 1)
     }
