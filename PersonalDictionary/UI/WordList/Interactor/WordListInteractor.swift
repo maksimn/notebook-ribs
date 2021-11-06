@@ -86,19 +86,21 @@ final class WordListInteractor: PresentableInteractor<WordListViewModellable>, W
         translationService.fetchTranslation(for: wordItem, { [weak self] result in
             switch result {
             case .success(let translation):
-                guard let self = self else { return }
-
-                let updatedWordItem = wordItem.update(translation: translation)
-                var wordList = self.data.wordList
-
-                guard position > -1 && position < wordList.count else { return }
-
-                wordList[position] = updatedWordItem
-                self.wordListRepository.update(updatedWordItem, completion: nil)
-                self.data = WordListData(wordList: wordList, changedItemPosition: position)
+                self?.update(wordItem: wordItem, with: translation, at: position)
             case .failure:
                 break
             }
         })
+    }
+
+    private func update(wordItem: WordItem, with translation: String, at position: Int) {
+        let updatedWordItem = wordItem.update(translation: translation)
+        var wordList = data.wordList
+
+        guard position > -1 && position < wordList.count else { return }
+
+        wordList[position] = updatedWordItem
+        wordListRepository.update(updatedWordItem, completion: nil)
+        data = WordListData(wordList: wordList, changedItemPosition: position)
     }
 }

@@ -52,6 +52,8 @@
 		598232592736737A00D958D9 /* WordListViewParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598232582736737A00D958D9 /* WordListViewParams.swift */; };
 		5982325E273673C600D958D9 /* NewWordViewParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5982325D273673C600D958D9 /* NewWordViewParams.swift */; };
 		5982326E273689DD00D958D9 /* WordListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5982326D273689DD00D958D9 /* WordListData.swift */; };
+		598232762736B97A00D958D9 /* WordListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598232752736B97A00D958D9 /* WordListInteractorTests.swift */; };
+		598232842736C0ED00D958D9 /* ManualMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598232832736C0ED00D958D9 /* ManualMocks.swift */; };
 		598385A6272B87F9007B344D /* NewWordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385A5272B87F9007B344D /* NewWordViewModel.swift */; };
 		598385AB272B8837007B344D /* NewWordViewModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385AA272B8837007B344D /* NewWordViewModelImpl.swift */; };
 		598385B3272B8902007B344D /* NewWordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598385AF272B8902007B344D /* NewWordRouter.swift */; };
@@ -153,6 +155,8 @@
 		598232582736737A00D958D9 /* WordListViewParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewParams.swift; sourceTree = "<group>"; };
 		5982325D273673C600D958D9 /* NewWordViewParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewParams.swift; sourceTree = "<group>"; };
 		5982326D273689DD00D958D9 /* WordListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListData.swift; sourceTree = "<group>"; };
+		598232752736B97A00D958D9 /* WordListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListInteractorTests.swift; sourceTree = "<group>"; };
+		598232832736C0ED00D958D9 /* ManualMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualMocks.swift; sourceTree = "<group>"; };
 		598385A5272B87F9007B344D /* NewWordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewModel.swift; sourceTree = "<group>"; };
 		598385AA272B8837007B344D /* NewWordViewModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordViewModelImpl.swift; sourceTree = "<group>"; };
 		598385AF272B8902007B344D /* NewWordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWordRouter.swift; sourceTree = "<group>"; };
@@ -453,6 +457,8 @@
 			isa = PBXGroup;
 			children = (
 				594ACC18270BA96100D9AB8F /* GeneratedMocks.swift */,
+				598232832736C0ED00D958D9 /* ManualMocks.swift */,
+				598232722736B94D00D958D9 /* UI */,
 				598ED935270B961300747AEE /* Repository */,
 				596D721E27051D5300872D6C /* Info.plist */,
 			);
@@ -511,6 +517,30 @@
 				59760251271115770077B5F7 /* JsonCoderImpl.swift */,
 			);
 			path = JsonCoder;
+			sourceTree = "<group>";
+		};
+		598232722736B94D00D958D9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				598232732736B95500D958D9 /* WordList */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		598232732736B95500D958D9 /* WordList */ = {
+			isa = PBXGroup;
+			children = (
+				598232742736B95D00D958D9 /* Interactor */,
+			);
+			path = WordList;
+			sourceTree = "<group>";
+		};
+		598232742736B95D00D958D9 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				598232752736B97A00D958D9 /* WordListInteractorTests.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		598385A4272B87A3007B344D /* ViewModel */ = {
@@ -800,7 +830,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Repository/Lang/LangRepository.swift\" \\\n\"${INPUT_DIR}/UI/NewWord/ViewModel/NewWordViewModel.swift\"\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
+			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PODS_ROOT}/Cuckoo/run\" generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Repository/Lang/LangRepository.swift\" \\\n\"${INPUT_DIR}/UI/WordList/ViewModel/WordListViewModellable.swift\" \\\n\"${INPUT_DIR}/UI/WordList/Router/WordListRouting.swift\" \\\n\"${INPUT_DIR}/Repository/WordList/WordListRepository.swift\" \\\n\"${INPUT_DIR}/Service/TranslationService/TranslationService.swift\" \\\n\"${INPUT_DIR}/../Pods/RIBs/ios/RIBs/Classes/ViewControllable.swift\"\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
 		};
 		59D43E0D27051EC300E068B1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -997,7 +1027,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				598ED937270B965900747AEE /* LangRepositoryImplTests.swift in Sources */,
+				598232762736B97A00D958D9 /* WordListInteractorTests.swift in Sources */,
 				594ACC19270BA96100D9AB8F /* GeneratedMocks.swift in Sources */,
+				598232842736C0ED00D958D9 /* ManualMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
